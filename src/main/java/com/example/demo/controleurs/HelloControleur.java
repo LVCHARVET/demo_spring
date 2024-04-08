@@ -1,4 +1,4 @@
-package fr.diginamic.controleurs;
+package com.example.demo.controleurs;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
