@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 import com.example.demo.configuration.Config;
 
 
- @Service
+@Service
 public class UserService {
+	 
 	private Config config;
 
 	public UserService(Config config) {
