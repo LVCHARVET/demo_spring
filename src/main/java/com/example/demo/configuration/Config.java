@@ -15,4 +15,9 @@ public class Config {
 		return name;
 	}
 
+	@Override
+	public String toString() {
+		return "Config [ name = " + getName() + " ]";
+	}	
+
 }
