@@ -2,14 +2,25 @@ package com.example.demo.model;
 
 public class Ville {
 	
-	String nom;
-	int nbHabitants;
+
+	private int id;
+	private String nom;
+	private int nbHabitants;
 		
-	public Ville(String nom, int nbHabitants) {
+	public Ville(int id, String nom, int nbHabitants) {
 		super();
+		this.id = id;
 		this.nom = nom;
 		this.nbHabitants = nbHabitants;
 	}
+	
+	public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 		
 	public String getNom() {
 		return nom;
