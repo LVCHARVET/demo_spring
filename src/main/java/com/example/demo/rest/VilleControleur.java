@@ -23,7 +23,7 @@ import jakarta.annotation.PostConstruct;
 public class VilleControleur {
 
 	private List<Ville> villes;
-	private int nextId = 3;
+	private int nextId;
 
 	@PostConstruct
 	public void init() {
@@ -33,6 +33,7 @@ public class VilleControleur {
 		villes.add(new Ville(1, "Marseille", 860363));
 		villes.add(new Ville(2, "Lyon", 513275));
 
+		nextId = villes.size();
 	}
 
 	@GetMapping
