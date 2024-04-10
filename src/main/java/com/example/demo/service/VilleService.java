@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.example.demo.model.Ville;
 import com.example.demo.repository.VilleRepository;
 
@@ -18,9 +19,9 @@ public class VilleService {
 
 	@PostConstruct
 	public void init() {
-		villeRepository.save(new Ville("Paris", 2243833));
-		villeRepository.save(new Ville("Marseille", 860363));
-		villeRepository.save(new Ville("Lyon", 513275));
+		villeRepository.save(new Ville("Paris", 2243833, "75"));
+		villeRepository.save(new Ville("Marseille", 860363, "13"));
+		villeRepository.save(new Ville("Lyon", 513275, "69"));
 	}
 
 	public List<Ville> extractVilles() {
@@ -32,12 +33,6 @@ public class VilleService {
 	public Ville extractVille(int idVille) {
 
 		return villeRepository.findById(idVille).orElse(null);
-
-	}
-
-	public Ville extractVille(String nom) {
-
-		return villeRepository.findByNom(nom);
 
 	}
 
@@ -71,5 +66,29 @@ public class VilleService {
 
 		return extractVilles();
 
+	}
+
+	public List<Ville> extractVillesByNomStartingWith(String debutNom) {
+		return villeRepository.findByNomStartingWith(debutNom);
+	}
+
+	public List<Ville> extractVillesByNbHabitantsGreaterThan(int min) {
+		return villeRepository.findByNbHabitantsGreaterThan(min);
+	}
+
+	public List<Ville> extractVillesByNbHabitantsBetween(int min, int max) {
+		return villeRepository.findByNbHabitantsBetween(min, max);
+	}
+
+	public List<Ville> extractVillesByCodeDepartementAndNbHabitantsGreaterThan(String codeDepartement, int min) {
+		return villeRepository.findByCodeDepartementAndNbHabitantsGreaterThan(codeDepartement, min);
+	}
+
+	public List<Ville> extractVillesByCodeDepartementAndNbHabitantsBetween(String codeDepartement, int min, int max) {
+		return villeRepository.findByCodeDepartementAndNbHabitantsBetween(codeDepartement, min, max);
+	}
+	
+	public List<Ville> extractTopNVillesByDepartement(String codeDepartement, int n) {
+	    return villeRepository.findTopNVillesByCodeDepartementOrderByNbHabitantsDesc(codeDepartement, n);
 	}
 }

@@ -13,14 +13,16 @@ public class Ville {
 	private int id;
 	private String nom;
 	private int nbHabitants;
+	private String codeDepartement;
 
 	public Ville() {
 	}
 
-	public Ville(String nom, int nbHabitants) {
+	public Ville(String nom, int nbHabitants, String codeDepartement) {
 
 		this.nom = nom;
 		this.nbHabitants = nbHabitants;
+		this.codeDepartement = codeDepartement;
 
 	}
 
@@ -60,11 +62,18 @@ public class Ville {
 
 	}
 
+	public String getCodeDepartement() {
+		return codeDepartement;
+	}
+
+	public void setCodeDepartement(String codeDepartement) {
+		this.codeDepartement = codeDepartement;
+	}
+
 	@Override
 	public String toString() {
-
-		return "Ville [nom=" + nom + ", nbHabitants=" + nbHabitants + "]";
-
+		return "Ville [id=" + id + ", nom=" + nom + ", nbHabitants=" + nbHabitants + ", codeDepartement="
+				+ codeDepartement + "]";
 	}
 
 }
