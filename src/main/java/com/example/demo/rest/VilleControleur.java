@@ -94,8 +94,9 @@ public class VilleControleur {
 
 	}
 
-	@GetMapping("/{codeDepartement}/top/{n}")
-	public List<Ville> topNVillesParDepartement(@PathVariable String codeDepartement, @PathVariable int n) {
-	    return villeService.extractTopNVillesByDepartement(codeDepartement, n);
+	@GetMapping("/find-population/{codeDep}/{size}")
+	public Iterable<Ville> findByDepartmentCodeOrderByNbInhabitantsDesc(@PathVariable("codeDep") String codeDep,
+			@PathVariable("size") Integer size) {
+		return villeService.findByDepartmentCodeOrderByNbInhabitantsDesc(codeDep, size);
 	}
 }

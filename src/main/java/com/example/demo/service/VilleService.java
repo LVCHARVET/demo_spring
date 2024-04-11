@@ -3,26 +3,27 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
+import com.example.demo.mapper.MapperUtils;
 import com.example.demo.model.Ville;
+import com.example.demo.modelDTO.VilleDto;
 import com.example.demo.repository.VilleRepository;
-
-import jakarta.annotation.PostConstruct;
 
 @Service
 public class VilleService {
 
 	@Autowired
 	private VilleRepository villeRepository;
+	
+	@Autowired
+    private MapperUtils mapperUtils; 
 
-	@PostConstruct
-	public void init() {
-		villeRepository.save(new Ville("Paris", 2243833, "75"));
-		villeRepository.save(new Ville("Marseille", 860363, "13"));
-		villeRepository.save(new Ville("Lyon", 513275, "69"));
-	}
+    public List<VilleDto> extractVillesDto() {
+        List<Ville> villes = villeRepository.findAll();
+        return mapperUtils.convertToDtoList(villes, VilleDto.class);
+    }
 
 	public List<Ville> extractVilles() {
 
@@ -80,15 +81,16 @@ public class VilleService {
 		return villeRepository.findByNbHabitantsBetween(min, max);
 	}
 
-	public List<Ville> extractVillesByCodeDepartementAndNbHabitantsGreaterThan(String codeDepartement, int min) {
-		return villeRepository.findByCodeDepartementAndNbHabitantsGreaterThan(codeDepartement, min);
+	public List<Ville> extractVillesByCodeDepartementAndNbHabitantsGreaterThan(String departementCode, int min) {
+		return villeRepository.findByDepartementCodeAndNbHabitantsGreaterThan(departementCode, min);
 	}
 
-	public List<Ville> extractVillesByCodeDepartementAndNbHabitantsBetween(String codeDepartement, int min, int max) {
-		return villeRepository.findByCodeDepartementAndNbHabitantsBetween(codeDepartement, min, max);
+	public List<Ville> extractVillesByCodeDepartementAndNbHabitantsBetween(String departementCode, int min, int max) {
+		return villeRepository.findByDepartementCodeAndNbHabitantsBetween(departementCode, min, max);
 	}
-	
-	public List<Ville> extractTopNVillesByDepartement(String codeDepartement, int n) {
-	    return villeRepository.findTopNVillesByCodeDepartementOrderByNbHabitantsDesc(codeDepartement, n);
+
+	public Iterable<Ville> findByDepartmentCodeOrderByNbInhabitantsDesc(String departmentCode, Integer size) {
+		return villeRepository.findByDepartementCodeOrderByNbHabitantsDesc(departmentCode, Pageable.ofSize(size))
+				.getContent();
 	}
 }
