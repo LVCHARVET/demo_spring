@@ -1,9 +1,12 @@
 package com.example.demo.rest;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,10 +50,12 @@ public class VilleControleur {
 	}
 
 	@PostMapping
-	public List<VilleDto> addVille(@RequestBody VilleDto nouvelleVilleDto) {
-		Ville nouvelleVille = mapperUtils.convertToEntity(nouvelleVilleDto, Ville.class);
-		return mapperUtils.convertToDtoList(villeService.insertVille(nouvelleVille), VilleDto.class);
-	}
+    public ResponseEntity<List<VilleDto>> addVille(@RequestBody VilleDto nouvelleVilleDto) {
+        Ville nouvelleVille = mapperUtils.convertToEntity(nouvelleVilleDto, Ville.class);
+        Ville villeAjoutee = villeService.insertVille(nouvelleVille);
+        VilleDto villeAjouteeDto = mapperUtils.convertToDto(villeAjoutee, VilleDto.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonList(villeAjouteeDto));
+    }
 
 	@DeleteMapping("/{id}")
 	public List<VilleDto> deleteVille(@PathVariable int id) {
