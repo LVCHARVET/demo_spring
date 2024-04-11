@@ -3,7 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.mapper.MapperUtils;
@@ -51,7 +52,7 @@ public class VilleService {
 
 		if (ville != null) {
 
-			ville.setNom(villeModifiee.getNom());
+			ville.setNomVille(villeModifiee.getNomVille());
 			ville.setNbHabitants(villeModifiee.getNbHabitants());
 			villeRepository.save(ville);
 
@@ -70,7 +71,7 @@ public class VilleService {
 	}
 
 	public List<Ville> extractVillesByNomStartingWith(String debutNom) {
-		return villeRepository.findByNomStartingWith(debutNom);
+		return villeRepository.findByNomVilleStartingWith(debutNom);
 	}
 
 	public List<Ville> extractVillesByNbHabitantsGreaterThan(int min) {
@@ -89,8 +90,7 @@ public class VilleService {
 		return villeRepository.findByDepartementCodeAndNbHabitantsBetween(departementCode, min, max);
 	}
 
-	public Iterable<Ville> findByDepartmentCodeOrderByNbInhabitantsDesc(String departmentCode, Integer size) {
-		return villeRepository.findByDepartementCodeOrderByNbHabitantsDesc(departmentCode, Pageable.ofSize(size))
-				.getContent();
+	public Page<Ville> extractVillesByDepartmentCodeOrderByNbHabitantsDesc(String departmentCode, Integer size) {
+	    return villeRepository.findByDepartementCodeOrderByNbHabitantsDesc(departmentCode, PageRequest.of(0, size));
 	}
 }

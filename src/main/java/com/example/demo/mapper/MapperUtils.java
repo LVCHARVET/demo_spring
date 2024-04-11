@@ -7,10 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.model.Departement;
-import com.example.demo.modelDTO.DepartementDto;
-
-
 
 @Component
 public class MapperUtils {

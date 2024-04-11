@@ -47,7 +47,7 @@ public class DepartementService {
 
 		if (departement != null) {
 
-			departement.setNom(departementModifiee.getNom());
+			departement.setNomDepartement(departementModifiee.getNomDepartement());
 			departement.setCode(departementModifiee.getCode());
 			departementRepository.save(departement);
 

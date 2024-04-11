@@ -17,7 +17,7 @@ public class Departement {
     private Long id;
 
     private String code;
-    private String nom;
+    private String nomDepartement;
 
     @OneToMany(mappedBy = "departement")
     private List<Ville> villes = new ArrayList<>();
@@ -25,9 +25,9 @@ public class Departement {
     public Departement() {
     }
 
-    public Departement(String code, String nom) {
+    public Departement(String code, String nomDepartement) {
         this.code = code;
-        this.nom = nom;
+        this.nomDepartement = nomDepartement;
     }
 
     public Long getId() {
@@ -46,12 +46,12 @@ public class Departement {
         this.code = code;
     }
 
-    public String getNom() {
-        return nom;
+    public String getNomDepartement() {
+        return nomDepartement;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomDepartement(String nomDepartement) {
+        this.nomDepartement = nomDepartement;
     }
 
     public List<Ville> getVilles() {

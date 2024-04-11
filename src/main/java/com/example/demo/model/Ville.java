@@ -16,7 +16,7 @@ public class Ville {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nom;
+	private String nomVille;
 	private int nbHabitants;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -26,8 +26,8 @@ public class Ville {
 	public Ville() {
 	}
 
-	public Ville(String nom, int nbHabitants, Departement departement) {
-		this.nom = nom;
+	public Ville(String nomVille, int nbHabitants, Departement departement) {
+		this.nomVille = nomVille;
 		this.nbHabitants = nbHabitants;
 		this.departement = departement;
 	}
@@ -40,12 +40,12 @@ public class Ville {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getNomVille() {
+		return nomVille;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomVille(String nomVille) {
+		this.nomVille = nomVille;
 	}
 
 	public int getNbHabitants() {

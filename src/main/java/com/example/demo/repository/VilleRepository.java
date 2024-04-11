@@ -10,7 +10,7 @@ import com.example.demo.model.Ville;
 
 public interface VilleRepository extends JpaRepository<Ville, Integer> {
 
-	List<Ville> findByNomStartingWith(String debutNom);
+	List<Ville> findByNomVilleStartingWith(String debutNom);
 
 	List<Ville> findByNbHabitantsGreaterThan(int min);
 

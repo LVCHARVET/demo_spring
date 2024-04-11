@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.mapper.MapperUtils;
 import com.example.demo.model.Departement;
+import com.example.demo.modelDTO.DepartementDto;
 import com.example.demo.service.DepartementService;
 
 @RestController
@@ -22,31 +24,35 @@ public class DepartementControleur {
     @Autowired
     private DepartementService departementService;
 
+    @Autowired
+    private MapperUtils mapperUtils;
+
     @GetMapping
-    public List<Departement> getDepartements() {
-        return departementService.extractDepartements();
+    public List<DepartementDto> getDepartements() {
+        List<Departement> departements = departementService.extractDepartements();
+        return mapperUtils.convertToDtoList(departements, DepartementDto.class);
     }
 
     @GetMapping("/{code}")
-    public Departement getDepartementByCode(@PathVariable String code) {
-        return departementService.extractDepartementByCode(code);
+    public DepartementDto getDepartementByCode(@PathVariable String code) {
+        Departement departement = departementService.extractDepartementByCode(code);
+        return mapperUtils.convertToDto(departement, DepartementDto.class);
     }
 
     @PutMapping("/{code}")
-	public List<Departement> updateDepartement(@PathVariable String code, @RequestBody Departement departementModifiee) {
-
-		return departementService.modifierDepartement(code, departementModifiee);
-
+	public List<DepartementDto> updateDepartement(@PathVariable String code, @RequestBody DepartementDto departementDtoModifiee) {
+        Departement departementModifiee = mapperUtils.convertToEntity(departementDtoModifiee, Departement.class);
+		return mapperUtils.convertToDtoList(departementService.modifierDepartement(code, departementModifiee), DepartementDto.class);
 	}
 
     @PostMapping
-    public List<Departement> addDepartement(@RequestBody Departement nouveauDepartement) {
-        return departementService.addDepartement(nouveauDepartement);
+    public List<DepartementDto> addDepartement(@RequestBody DepartementDto nouveauDepartementDto) {
+        Departement nouveauDepartement = mapperUtils.convertToEntity(nouveauDepartementDto, Departement.class);
+        return mapperUtils.convertToDtoList(departementService.addDepartement(nouveauDepartement), DepartementDto.class);
     }
 
     @DeleteMapping("/{code}")
-    public List<Departement> deleteDepartement(@PathVariable String code) {
-        return departementService.suppimerDepartement(code);
+    public List<DepartementDto> deleteDepartement(@PathVariable String code) {
+        return mapperUtils.convertToDtoList(departementService.suppimerDepartement(code), DepartementDto.class);
     }
-
-    }
+}
