@@ -50,12 +50,12 @@ public class VilleControleur {
 	}
 
 	@PostMapping
-    public ResponseEntity<List<VilleDto>> addVille(@RequestBody VilleDto nouvelleVilleDto) {
-        Ville nouvelleVille = mapperUtils.convertToEntity(nouvelleVilleDto, Ville.class);
-        Ville villeAjoutee = villeService.insertVille(nouvelleVille);
-        VilleDto villeAjouteeDto = mapperUtils.convertToDto(villeAjoutee, VilleDto.class);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonList(villeAjouteeDto));
-    }
+	public ResponseEntity<List<VilleDto>> addVille(@RequestBody VilleDto nouvelleVilleDto) {
+		Ville nouvelleVille = mapperUtils.convertToEntity(nouvelleVilleDto, Ville.class);
+		Ville villeAjoutee = villeService.insertVille(nouvelleVille);
+		VilleDto villeAjouteeDto = mapperUtils.convertToDto(villeAjoutee, VilleDto.class);
+		return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonList(villeAjouteeDto));
+	}
 
 	@DeleteMapping("/{id}")
 	public List<VilleDto> deleteVille(@PathVariable int id) {
@@ -97,8 +97,8 @@ public class VilleControleur {
 
 	@GetMapping("/find-population/{codeDep}/{size}")
 	public Page<VilleDto> findByDepartmentCodeOrderByNbHabitantsDesc(@PathVariable("codeDep") String codeDep,
-	                                                                  @PathVariable("size") Integer size) {
-	    Page<Ville> villesPage = villeService.extractVillesByDepartmentCodeOrderByNbHabitantsDesc(codeDep, size);
-	    return villesPage.map(ville -> mapperUtils.convertToDto(ville, VilleDto.class));
+			@PathVariable("size") Integer size) {
+		Page<Ville> villesPage = villeService.extractVillesByDepartmentCodeOrderByNbHabitantsDesc(codeDep, size);
+		return villesPage.map(ville -> mapperUtils.convertToDto(ville, VilleDto.class));
 	}
 }

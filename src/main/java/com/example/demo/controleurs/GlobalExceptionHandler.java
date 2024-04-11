@@ -11,7 +11,7 @@ import com.example.demo.exception.GestionErreurs;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(GestionErreurs.class)
-    public ResponseEntity<String> handleGestionErreursFonctionnellesException(GestionErreurs ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
+	public ResponseEntity<String> handleGestionErreursFonctionnellesException(GestionErreurs ex) {
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+	}
 }

@@ -21,6 +21,6 @@ public interface VilleRepository extends JpaRepository<Ville, Integer> {
 	List<Ville> findByDepartementCodeAndNbHabitantsBetween(String codeDepartement, int min, int max);
 
 	Page<Ville> findByDepartementCodeOrderByNbHabitantsDesc(String codeDepartement, Pageable pageable);
-	
+
 	boolean existsByNomVilleAndDepartementNomDepartement(String nomVille, String nomDepartement);
 }

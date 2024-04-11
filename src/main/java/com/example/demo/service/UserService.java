@@ -4,10 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.config.Config;
 
-
 @Service
 public class UserService {
-	 
+
 	private Config config;
 
 	public UserService(Config config) {
@@ -18,5 +17,5 @@ public class UserService {
 	public Config getConfig() {
 		return config;
 	}
-	
+
 }

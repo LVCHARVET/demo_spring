@@ -56,7 +56,7 @@ public class DepartementControleur {
 		Departement departementAjoutee = departementService.addDepartement(nouveauDepartement);
 		DepartementDto departementDtos = mapperUtils.convertToDto(departementAjoutee, DepartementDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonList(departementDtos));
-		
+
 	}
 
 	@DeleteMapping("/{code}")

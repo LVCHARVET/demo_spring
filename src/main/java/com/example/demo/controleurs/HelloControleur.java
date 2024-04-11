@@ -10,11 +10,11 @@ import com.example.demo.service.HelloService;
 @RestController
 @RequestMapping("/hello")
 public class HelloControleur {
-	
+
 	@Autowired
 	private HelloService hello;
-	
-	@GetMapping	
+
+	@GetMapping
 	public String direHello() {
 		return hello.salutation();
 	}
