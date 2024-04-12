@@ -1,5 +1,7 @@
 package com.example.demo.rest;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +31,33 @@ public class DepartementControleur {
 
 	@Autowired
 	private MapperUtils mapperUtils;
+
+	@GetMapping("/exportDepartementsCSV")
+	public String exportDepartementsCSV() {
+		
+		List<Departement> departements = departementService.extractDepartements();
+		String csvFileName = "src/main/resources/csv/departements.csv";
+		
+		try (FileWriter writer = new FileWriter(csvFileName)) {
+			
+			writer.append("Code département,Nom du département\n");
+			
+			for (Departement departement : departements) {
+				
+				writer.append(String.join(",", departement.getCode(), departement.getNomDepartement()));
+				writer.append("\n");
+				
+			}
+			
+			return "CSV exporté avec succès!";
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();			
+			return "Erreur lors de l'export CSV: " + e.getMessage();
+			
+		}
+	}
 
 	@GetMapping
 	public List<DepartementDto> getDepartements() {

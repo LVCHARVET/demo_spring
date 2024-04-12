@@ -6,5 +6,6 @@ public class GestionErreurs extends RuntimeException {
 
 	public GestionErreurs(String message) {
 		super(message);
-	}
+	}	
+	
 }

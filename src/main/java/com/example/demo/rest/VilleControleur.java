@@ -1,5 +1,7 @@
 package com.example.demo.rest;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,6 +37,34 @@ public class VilleControleur {
 	public List<VilleDto> getVilles() {
 		List<Ville> villes = villeService.extractVilles();
 		return mapperUtils.convertToDtoList(villes, VilleDto.class);
+	}
+
+	@GetMapping("/exportVillesCSV")
+	public String exportVillesCSV() {
+		
+		List<Ville> villes = villeService.extractVilles();
+		String csvFileName = "src/main/resources/csv/villes.csv";
+		
+		try (FileWriter writer = new FileWriter(csvFileName)) {
+			
+			writer.append("Nom de la ville,Nombre d'habitants,Code département,Nom du département\n");
+			
+			for (Ville ville : villes) {
+				
+				writer.append(String.join(",", ville.getNomVille(), String.valueOf(ville.getNbHabitants()),
+						ville.getDepartement().getCode(), ville.getDepartement().getNomDepartement()));
+				writer.append("\n");
+				
+			}
+			
+			return "CSV exporté avec succès!";
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			return "Erreur lors de l'export CSV: " + e.getMessage();
+			
+		}
 	}
 
 	@GetMapping("/{id}")
