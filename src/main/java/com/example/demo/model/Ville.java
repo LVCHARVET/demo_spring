@@ -15,7 +15,7 @@ public class Ville {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nomVille;
-	private int nbHabitants;
+	private Integer nbHabitants;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@NotNull
@@ -24,7 +24,7 @@ public class Ville {
 	public Ville() {
 	}
 
-	public Ville(String nomVille, int nbHabitants, Departement departement) {
+	public Ville(String nomVille, Integer nbHabitants, Departement departement) {
 		this.nomVille = nomVille;
 		this.nbHabitants = nbHabitants;
 		this.departement = departement;
@@ -46,11 +46,11 @@ public class Ville {
 		this.nomVille = nomVille;
 	}
 
-	public int getNbHabitants() {
-		return nbHabitants;
+	public Integer getNbHabitants() {
+	    return nbHabitants != null ? nbHabitants.intValue() : 10; // ou retourner une valeur par défaut
 	}
 
-	public void setNbHabitants(int nbHabitants) {
+	public void setNbHabitants(Integer nbHabitants) {
 		this.nbHabitants = nbHabitants;
 	}
 

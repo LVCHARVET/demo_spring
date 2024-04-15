@@ -55,19 +55,19 @@ public class VilleService {
 
 		ville.setDepartement(departement);
 
-		if (ville.getNbHabitants() < 10) {
-			throw new GestionErreurs("Une ville doit avoir au moins 10 habitants");
-		}
-		if (ville.getNomVille().length() < 2) {
-			throw new GestionErreurs("Le nom de la ville doit contenir au moins 2 lettres");
-		}
-		if (ville.getDepartement().getCode().length() != 2) {
-			throw new GestionErreurs("Le code département doit comporter exactement 2 caractères");
-		}
-		if (villeRepository.existsByNomVilleAndDepartementNomDepartement(ville.getNomVille(),
-				departement.getNomDepartement())) {
-			throw new GestionErreurs("Le nom de la ville doit être unique pour un département donné");
-		}
+//		if (ville.getNbHabitants() < 10) {
+//			throw new GestionErreurs("Une ville doit avoir au moins 10 habitants");
+//		}
+//		if (ville.getNomVille().length() < 2) {
+//			throw new GestionErreurs("Le nom de la ville doit contenir au moins 2 lettres");
+//		}
+//		if (ville.getDepartement().getCode().length() != 2) {
+//			throw new GestionErreurs("Le code département doit comporter exactement 2 caractères");
+//		}
+//		if (villeRepository.existsByNomVilleAndDepartementNomDepartement(ville.getNomVille(),
+//				departement.getNomDepartement())) {
+//			throw new GestionErreurs("Le nom de la ville doit être unique pour un département donné");
+//		}
 
 		return villeRepository.save(ville);
 	}

@@ -3,7 +3,7 @@ package com.example.demo.modelDTO;
 public class VilleDto {
 
 	private String nomVille;
-	private int nbHabitants;
+	private Integer nbHabitants;
 	private String codeDepartement;
 	private String nomDepartement;
 
@@ -19,7 +19,7 @@ public class VilleDto {
 		return nbHabitants;
 	}
 
-	public void setNbHabitants(int nbHabitants) {
+	public void setNbHabitants(Integer nbHabitants) {
 		this.nbHabitants = nbHabitants;
 	}
 

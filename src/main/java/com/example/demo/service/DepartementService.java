@@ -74,4 +74,15 @@ public class DepartementService {
 		departementRepository.findByCode(code);
 		return extractDepartements();
 	}
+	
+	public Departement getOrCreateDepartement(String nomDepartement, String code) {
+        Departement departement = departementRepository.findByNomDepartement(nomDepartement);
+        if (departement == null) {
+            departement = new Departement();
+            departement.setNomDepartement(nomDepartement);
+            departement.setCode(code);
+            departementRepository.save(departement);
+        }
+        return departement;
+    }
 }
