@@ -37,6 +37,10 @@ public class VilleService {
 	public List<Ville> extractVilles() {
 		return villeRepository.findAll();
 	}
+	
+	public List<Ville> extractVillesWithDepartments() {
+	    return villeRepository.findAllWithDepartments(); // Méthode à implémenter dans le repository
+	}
 
 	public Ville extractVille(int idVille) {
 		return villeRepository.findById(idVille).orElse(null);
