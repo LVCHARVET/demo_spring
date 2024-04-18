@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Profil Utilisateur</title>
+</head>
+<body>
+	<h1>Profil Utilisateur</h1>
+	<ul>
+		<li th:text="'Username : ' + ${authentication.name}">Username</li>
+		<li th:text="'Authorities : ' + ${authentication.authorities}">Role</li>
+	</ul>
+</body>
+</html>

@@ -9,8 +9,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,22 +27,27 @@ public class UserAccount {
 	private String username;
 	private String password;
 
+	@Column(name = "role")
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<GrantedAuthority> authorities = new ArrayList<>();
 
 	public UserAccount() {
 	}
 
-	public UserAccount(String username, String password, String... authorities) {
+	public UserAccount(String username, String password, UserRole role, String... authorities) {
 		this.username = username;
 		this.password = password;
+		this.role = role;
 		this.authorities = Arrays.stream(authorities).map(SimpleGrantedAuthority::new).map(GrantedAuthority.class::cast)
 				.toList();
 	}
 
 	public UserDetails asUser() {
 		return User.withDefaultPasswordEncoder().username(getUsername()).password(getPassword())
-				.authorities(getAuthorities()).build();
+				.authorities("ROLE_" + getRole().name()).build();
 	}
 
 	public Long getId() {
@@ -64,6 +72,14 @@ public class UserAccount {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 
 	public List<GrantedAuthority> getAuthorities() {

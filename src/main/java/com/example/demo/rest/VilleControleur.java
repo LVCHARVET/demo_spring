@@ -23,6 +23,8 @@ import com.example.demo.model.Ville;
 import com.example.demo.modelDTO.VilleDto;
 import com.example.demo.service.VilleService;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 @RequestMapping("/villes")
 public class VilleControleur {
@@ -68,13 +70,13 @@ public class VilleControleur {
 	}
 
 	@GetMapping("/{id}")
-	public VilleDto getVilleById(@PathVariable int id) {
+	public VilleDto getVilleById(@PathVariable Long id) {
 		Ville ville = villeService.extractVille(id);
 		return mapperUtils.convertToDto(ville, VilleDto.class);
 	}
 
 	@PutMapping("/{id}")
-	public List<VilleDto> updateVille(@PathVariable int id, @RequestBody VilleDto villeDtoModifiee) {
+	public List<VilleDto> updateVille(@PathVariable Long id, @RequestBody VilleDto villeDtoModifiee) {
 		Ville villeModifiee = mapperUtils.convertToEntity(villeDtoModifiee, Ville.class);
 		return mapperUtils.convertToDtoList(villeService.modifierVille(id, villeModifiee), VilleDto.class);
 	}
@@ -86,10 +88,11 @@ public class VilleControleur {
 		VilleDto villeAjouteeDto = mapperUtils.convertToDto(villeAjoutee, VilleDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonList(villeAjouteeDto));
 	}
-
-	@DeleteMapping("/{id}")
-	public List<VilleDto> deleteVille(@PathVariable int id) {
-		return mapperUtils.convertToDtoList(villeService.supprimerVille(id), VilleDto.class);
+	
+	@GetMapping("/delete/{id}")
+	public List<VilleDto> deleteVille(@PathVariable Long id) {
+		List<Ville> villes = villeService.supprimerVille(id);
+		return mapperUtils.convertToDtoList(villes, VilleDto.class);
 	}
 
 	@GetMapping("/nom/{debutNom}")

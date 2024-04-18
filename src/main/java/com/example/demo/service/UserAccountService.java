@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.UserAccount;
+import com.example.demo.model.UserRole;
 import com.example.demo.repository.UserAccountRepository;
 
 import jakarta.annotation.PostConstruct;
@@ -16,8 +17,8 @@ public class UserAccountService {
 
 	@PostConstruct
 	public void initUsers() {
-		userAccountRepository.save(new UserAccount("user", "user", "USER"));
-		userAccountRepository.save(new UserAccount("admin", "admin", "ADMIN"));
+		userAccountRepository.save(new UserAccount("user", "user", UserRole.USER, "USER"));
+		userAccountRepository.save(new UserAccount("admin", "admin", UserRole.ADMIN, "ADMIN"));
 	}
 
 }

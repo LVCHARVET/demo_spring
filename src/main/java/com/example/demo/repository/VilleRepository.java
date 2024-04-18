@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,10 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.demo.model.Ville;
 
 public interface VilleRepository extends JpaRepository<Ville, Integer> {
+
+	void deleteById(Long idVille);
+
+	Optional<Ville> findById(Long idVille);
 
 	List<Ville> findByNomVilleStartingWith(String debutNom);
 

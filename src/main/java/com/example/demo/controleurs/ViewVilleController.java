@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +23,7 @@ public class ViewVilleController {
 	@GetMapping("/viewvilles")
 	public ModelAndView getVilles() {
 		Map<String, Object> model = new HashMap<>();
-		List<Ville> villes = villeService.extractVillesWithDepartments(); 
+		List<Ville> villes = villeService.extractVillesWithDepartments();
 		model.put("villes", villes);
 
 		return new ModelAndView("viewvilles", model);

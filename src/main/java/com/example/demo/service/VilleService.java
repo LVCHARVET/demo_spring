@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.exception.GestionErreurs;
@@ -37,12 +38,12 @@ public class VilleService {
 	public List<Ville> extractVilles() {
 		return villeRepository.findAll();
 	}
-	
+
 	public List<Ville> extractVillesWithDepartments() {
-	    return villeRepository.findAllWithDepartments(); // Méthode à implémenter dans le repository
+		return villeRepository.findAllWithDepartments(); // Méthode à implémenter dans le repository
 	}
 
-	public Ville extractVille(int idVille) {
+	public Ville extractVille(Long idVille) {
 		return villeRepository.findById(idVille).orElse(null);
 	}
 
@@ -76,7 +77,7 @@ public class VilleService {
 		return villeRepository.save(ville);
 	}
 
-	public List<Ville> modifierVille(int idVille, Ville villeModifiee) {
+	public List<Ville> modifierVille(Long idVille, Ville villeModifiee) {
 		Ville ville = villeRepository.findById(idVille).orElse(null);
 
 		if (ville != null) {
@@ -88,7 +89,9 @@ public class VilleService {
 		return extractVilles();
 	}
 
-	public List<Ville> supprimerVille(int idVille) {
+	@Transactional
+	@PreAuthorize("hasRole('ADMIN')")
+	public List<Ville> supprimerVille(Long idVille) {
 		villeRepository.deleteById(idVille);
 		return extractVilles();
 	}

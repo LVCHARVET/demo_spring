@@ -17,7 +17,6 @@ public class DigiHelloApplication implements CommandLineRunner {
 		SpringApplication.run(DigiHelloApplication.class, args);
 	}
 
-	@Override
 	public void run(String... args) throws Exception {
 		System.out.println(config);
 	}
