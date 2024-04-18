@@ -23,6 +23,7 @@ public class CSVDataLoader implements CommandLineRunner {
 
 	public void run(String... args) throws Exception {
 		String villesCsvFilePath = "villes.csv";
+//		String villesCsvFilePath = "villesFull.csv";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(villesCsvFilePath))) {
 			String line;

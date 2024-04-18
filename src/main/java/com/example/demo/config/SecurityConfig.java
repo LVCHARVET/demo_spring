@@ -15,20 +15,21 @@ import com.example.demo.repository.UserAccountRepository;
 public class SecurityConfig {
 
 	@Bean
-	public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository) {
+	protected UserDetailsService userDetailsService(UserAccountRepository userAccountRepository) {
 		return username -> userAccountRepository.findByUsername(username).asUser();
 	}
 
 	@Bean
-	public SecurityFilterChain configureSecurity(HttpSecurity http) throws Exception {
+	protected SecurityFilterChain configureSecurity(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(request -> request
-						.requestMatchers("/login").permitAll()
+						.requestMatchers("/login", "/login/oauth2/code/google").permitAll()
 						.requestMatchers("/", "/hello", "/profil").authenticated()
 						.requestMatchers("/villes/delete/**").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/villes/**").authenticated()
 						.requestMatchers(HttpMethod.POST, "/villes/**").hasRole("ADMIN").anyRequest().denyAll())
 				.formLogin(Customizer.withDefaults())
-				.httpBasic(Customizer.withDefaults());
+				.httpBasic(Customizer.withDefaults())
+				.oauth2Login(Customizer.withDefaults());
 		return http.build();
 	}
 }

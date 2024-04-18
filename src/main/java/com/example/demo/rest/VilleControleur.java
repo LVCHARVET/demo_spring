@@ -23,8 +23,6 @@ import com.example.demo.model.Ville;
 import com.example.demo.modelDTO.VilleDto;
 import com.example.demo.service.VilleService;
 
-import jakarta.transaction.Transactional;
-
 @RestController
 @RequestMapping("/villes")
 public class VilleControleur {
@@ -43,29 +41,29 @@ public class VilleControleur {
 
 	@GetMapping("/exportVillesCSV")
 	public String exportVillesCSV() {
-		
+
 		List<Ville> villes = villeService.extractVilles();
 		String csvFileName = "src/main/resources/csv/villes.csv";
-		
+
 		try (FileWriter writer = new FileWriter(csvFileName)) {
-			
+
 			writer.append("Nom de la ville,Nombre d'habitants,Code département,Nom du département\n");
-			
+
 			for (Ville ville : villes) {
-				
+
 				writer.append(String.join(",", ville.getNomVille(), String.valueOf(ville.getNbHabitants()),
 						ville.getDepartement().getCode(), ville.getDepartement().getNomDepartement()));
 				writer.append("\n");
-				
+
 			}
-			
+
 			return "CSV exporté avec succès!";
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 			return "Erreur lors de l'export CSV: " + e.getMessage();
-			
+
 		}
 	}
 
@@ -88,11 +86,10 @@ public class VilleControleur {
 		VilleDto villeAjouteeDto = mapperUtils.convertToDto(villeAjoutee, VilleDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonList(villeAjouteeDto));
 	}
-	
+
 	@GetMapping("/delete/{id}")
 	public List<VilleDto> deleteVille(@PathVariable Long id) {
-		List<Ville> villes = villeService.supprimerVille(id);
-		return mapperUtils.convertToDtoList(villes, VilleDto.class);
+		return mapperUtils.convertToDtoList(villeService.supprimerVille(id), VilleDto.class);
 	}
 
 	@GetMapping("/nom/{debutNom}")
